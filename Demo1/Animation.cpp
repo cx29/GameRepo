@@ -1,6 +1,6 @@
 #include"Animation.h"
 
-Animation::Animation(LPCTSTR leftPath, LPCTSTR rightPath, int num, int interval)
+Animation::Animation(LPCTSTR leftPath, LPCTSTR rightPath, LPCTSTR shadowPath, int num, int interval)
 {
 	_interval_ms = interval;
 	TCHAR left_path_file[256];
@@ -18,8 +18,8 @@ Animation::Animation(LPCTSTR leftPath, LPCTSTR rightPath, int num, int interval)
 		_right_frame_list.push_back(rightFrame);
 	}
 	//当前动画列表默认指向左边动画,const修饰的变量不能进行修改,但是修饰指针,可以修改指针指向的地址
-	//_current_frame_list = &_left_frame_list;
-	loadimage(&_shadow_img, _T("img/shadow_player.png"));
+	_current_frame_list = &_left_frame_list;
+	loadimage(&_shadow_img, shadowPath);
 }
 
 Animation::~Animation()
@@ -34,28 +34,27 @@ Animation::~Animation()
 	}
 	_left_frame_list.clear();
 	_right_frame_list.clear();
-	//_current_frame_list = nullptr;
+	_current_frame_list = nullptr;
 }
 
-void Animation::Play(const FloatPOINT& dir, const FloatPOINT& pos, int delta, int obj_WIDTH, int shadow_WIDTH, int obj_HEIGHT)
+void Animation::Play(const FloatPOINT& dir, const FloatPOINT& pos, int delta, int obj_WIDTH, int shadow_WIDTH, int obj_HEIGHT, int d_value)
 {
 	//计算阴影水平位置
 	float pos_shadow_x = pos.x + (obj_WIDTH / 2 - shadow_WIDTH / 2);
 	//计算阴影垂直位置
-	float pos_shadow_y = pos.y + obj_HEIGHT - 8;
+	float pos_shadow_y = pos.y + obj_HEIGHT - d_value;
 	FloatPOINT shadow_pos = { pos_shadow_x,pos_shadow_y };
 	putimage_alpha(shadow_pos, &_shadow_img);
-	std::vector<IMAGE*> current = _left_frame_list;
 	frameLength = _left_frame_list.size();
 	if (dir.x > 0)
 	{
 		frameLength = _right_frame_list.size();
-		current = _right_frame_list;
+		_current_frame_list = &_right_frame_list;
 	}
 	else if (dir.x < 0)
 	{
 		frameLength = _left_frame_list.size();
-		current = _left_frame_list;
+		_current_frame_list = &_left_frame_list;
 	}
 
 	_timer += delta;
@@ -66,7 +65,7 @@ void Animation::Play(const FloatPOINT& dir, const FloatPOINT& pos, int delta, in
 	}
 
 	//使用->at来对指针指向的vector内的元素进行访问
-	putimage_alpha(pos, current[_idx_frame]);
+	putimage_alpha(pos, _current_frame_list->at(_idx_frame));
 }
 
 inline void Animation::putimage_alpha(const FloatPOINT& point, IMAGE* img)

@@ -15,7 +15,7 @@ FloatPOINT player_pos = { 500.0f, 500.0f };
 FloatPOINT enemy_pos = { 200.0f, 500.0f };
 FloatPOINT enemy_pos1 = { 240.0f, 500.0f };
 //玩家
-Player anim_player(_T("img/player_left_%d.png"), _T("img/player_right_%d.png"), 6, 45, player_pos, 100.0f, WINDOW_WIDTH, WINDOW_HEIGHT);
+Player anim_player(_T("img/player_left_%d.png"), _T("img/player_right_%d.png"), _T("img/shadow_player.png"), 6, 45, player_pos, 100.0f, WINDOW_WIDTH, WINDOW_HEIGHT);
 
 /// <summary>
 /// 生成敌人对象
@@ -32,6 +32,7 @@ void TryGenerateEnemy(std::vector<Enemy*>& enemy_list)
 		Enemy* enemy = new Enemy(
 			_T("img/enemy_left_%d.png"),
 			_T("img/enemy_right_%d.png"),
+			_T("img/shadow_enemy.png"),
 			6, 45,
 			WINDOW_WIDTH, WINDOW_HEIGHT
 		);

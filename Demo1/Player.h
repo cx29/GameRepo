@@ -3,8 +3,7 @@
 class Player :public Animation
 {
 public:
-	Player();
-	Player(LPCTSTR leftPath, LPCTSTR rightPath, int num, int interval, FloatPOINT& initPos, float initialHealth, int window_width, int window_height);
+	Player(LPCTSTR leftPath, LPCTSTR rightPath, LPCTSTR shadowPath, int num, int interval, FloatPOINT& initPos, float initialHealth, int window_width, int window_height);
 
 	/// <summary>
 /// 播放动画
@@ -27,7 +26,7 @@ public:
 	/// 将玩家的坐标返回出去
 	/// </summary>
 	/// <returns></returns>
-	FloatPOINT& GetPos();
+	FloatPOINT GetPos() const;
 
 	/// <summary>
 	/// 监控键盘输入事件
@@ -55,7 +54,7 @@ private:
 	const int WINDOW_HEIGHT;
 	const int PLAYER_WIDTH = 80;
 	const int PLAYER_HEIGHT = 80;
-	const int SHADOW_WIDTH = 48;
+	const int SHADOW_WIDTH = 32;
 	const float FIXED_TIME_STEP = 0.016f;
 	FloatPOINT normalized = pos.normalized();
 	FloatPOINT pos;

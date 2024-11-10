@@ -8,7 +8,7 @@
 class Enemy :public Animation
 {
 public:
-	Enemy(LPCTSTR leftPath, LPCTSTR rightPath, int num, int interval, int window_width, int window_height);
+	Enemy(LPCTSTR leftPath, LPCTSTR rightPath, LPCTSTR shadowPath, int num, int interval, int window_width, int window_height);
 
 	~Enemy() {}
 	/// <summary>

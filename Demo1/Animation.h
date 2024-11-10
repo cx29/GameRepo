@@ -16,7 +16,7 @@ public:
 	/// <param name="rpath">右图片路径</param>
 	/// <param name="num">图片数量</param>
 	/// <param name="interval">帧间隔</param>
-	Animation(LPCTSTR leftPath, LPCTSTR rightPath, int num, int interval);
+	Animation(LPCTSTR leftPath, LPCTSTR rightPath, LPCTSTR shadowPath, int num, int interval);
 
 	~Animation();
 
@@ -30,7 +30,7 @@ protected:
 	/// <param name="obj_WIDTH"></param>
 	/// <param name="shadow_WIDTH"></param>
 	/// <param name="obj_HEIGHT"></param>
-	void Play(const FloatPOINT& dir, const FloatPOINT& pos, int delta, int obj_WIDTH, int shadow_WIDTH, int obj_HEIGHT);
+	void Play(const FloatPOINT& dir, const FloatPOINT& pos, int delta, int obj_WIDTH, int shadow_WIDTH, int obj_HEIGHT, int d_value);
 
 private:
 	int _timer = 0;//动画计时器
@@ -42,7 +42,7 @@ private:
 	std::vector<IMAGE*> _left_frame_list;
 	std::vector<IMAGE*> _right_frame_list;
 	//当前的动画列表不允许从该变量进行修改,如果需要更改动画列表的元素应该从以上两个变量进行修改
-	//const std::vector<IMAGE*>* _current_frame_list = nullptr;
+	const std::vector<IMAGE*>* _current_frame_list = nullptr;
 
 	/// <summary>
 	/// inline关键字,建议编译器插入代码的位置

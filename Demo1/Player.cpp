@@ -1,7 +1,7 @@
 #include"Player.h"
 
-Player::Player(LPCTSTR leftPath, LPCTSTR rightPath, int num, int interval, FloatPOINT& initPos, float initialHealth, int window_width, int window_height)
-	:Animation(leftPath, rightPath, num, interval), health(initialHealth), pos(initPos), WINDOW_WIDTH(window_width), WINDOW_HEIGHT(window_height)
+Player::Player(LPCTSTR leftPath, LPCTSTR rightPath, LPCTSTR shadowPath, int num, int interval, FloatPOINT& initPos, float initialHealth, int window_width, int window_height)
+	:Animation(leftPath, rightPath, shadowPath, num, interval), health(initialHealth), pos(initPos), WINDOW_WIDTH(window_width), WINDOW_HEIGHT(window_height)
 {
 }
 
@@ -16,7 +16,7 @@ void Player::PlayAnimation(int delta)
 	{
 		Move(direction, PLAYER_SPEED, FIXED_TIME_STEP);
 	}
-	Play(normalized, pos, delta, PLAYER_WIDTH, SHADOW_WIDTH, PLAYER_HEIGHT);//x<=0的话则是向左
+	Play(normalized, pos, delta, PLAYER_WIDTH, SHADOW_WIDTH, PLAYER_HEIGHT, 8);//x<=0的话则是向左
 }
 
 float Player::GetHealth() const
@@ -24,7 +24,7 @@ float Player::GetHealth() const
 	return health;
 }
 
-FloatPOINT& Player::GetPos()
+FloatPOINT Player::GetPos() const
 {
 	return pos;
 }
